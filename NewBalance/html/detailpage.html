@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>New Balance中国官方商城</title>
+		<link rel="stylesheet" type="text/css" href="../css/detailpage.css" />
+	</head>
+	<style>
+		#footerss {
+			position: absolute;
+			top: 2000px;
+			width: 100%;
+		}
+	</style>
+	<body>
+		<div id="boxss"></div>
+
+		<div class="safess">
+			<ul>
+				<li style="opacity: 1;"><img src="" class="mgi"></li>
+				<li><img src="" class="mgi"></li>
+				<li><img src="" class="mgi"></li>
+				<li><img src="" class="mgi"></li>
+			</ul>
+			<div id="small-box">
+				<div id="mask"></div>
+			</div>
+			<div id="big-box"></div>
+			<div class="buy">
+				<span>Men's</span><span id="price"></span>
+				<h1 id="namess"></h1><br>
+				<span><b>颜色:</b></span><span class="colorsss"></span><br>
+				<button class="butt1"></button><br>
+				<p><b>尺码:</b></p>
+				<div>
+					<button class="butt2" id="butt22" style="background-color: #232323;color: white;">40</button>
+					<button class="butt2">41.5</button>
+					<button class="butt2">42.5</button>
+					<button class="butt2">44</button>
+					<button class="butt2">45</button>
+				</div>
+
+				<p><b>宽度:</b></p>
+				<button class="butt3">标准鞋宽</button><br>
+				<button class="butt4">加入购物车</button><br>
+				<button class="butt5">结账</button>
+				<div class="size">
+					<p>简约舒适，休闲百搭</p>
+				</div>
+				<div class="sizess">
+					<span>产品详情</span><button>+</button>
+				</div>
+			</div>
+		</div>
+		<div id="imgss">
+			<img src="../img/12333.gif">
+		</div>
+		<div class="like">
+			<p>您可能喜欢：</p>
+			<ul>
+				<li><img src="../img/m750.jpg"></li>
+				<li>中性款 750系列休闲凉鞋</li>
+				<li>￥599</li>
+				<li><a href="">点击购买 ▷</a></li>
+			</ul>
+			<ul class="ul11">
+				<li><img src="../img/m530.jpg"></li>
+				<li>中性款 750系列休闲凉鞋</li>
+				<li>￥699</li>
+				<li><a href="">点击购买 ▷</a></li>
+			</ul>
+			<ul class="ul11">
+				<li><img src="../img/m827.jpg"></li>
+				<li>中性款 750系列休闲凉鞋</li>
+				<li>￥799</li>
+				<li><a href="">点击购买 ▷</a></li>
+			</ul>
+			<ul class="ul11">
+				<li><img src="../img/m850.jpg"></li>
+				<li>中性款 750系列休闲凉鞋</li>
+				<li>￥799</li>
+				<li><a href="">点击购买 ▷</a></li>
+			</ul>
+		</div>
+		<div class="sales">
+			<span>运送及退货</span><button>+</button>
+		</div>
+
+
+		<div id="footerss"></div>
+	</body>
+</html>
+<script src="../js/jquery.js"></script>
+<script src="../js/MF.js"></script>
+<script>
+	//放大镜
+	$("#boxss").load("header.html");
+	$("#footerss").load("footer.html");
+	let osmallbox = document.querySelector("#small-box");
+	let omask = document.querySelector("#mask");
+	let obigbox = document.querySelector("#big-box");
+	let m = new MF(osmallbox, omask, obigbox);
+	m.eventBind();
+
+	//从数据库获取数据渲染页面
+	let str = location.href;
+	console.log(str);
+	let n = str.indexOf("?");
+	console.log(n);
+	str = str.substr(n + 1);
+	console.log(str);
+	let obj = null;
+	$.ajax({
+		url: "../php/detailpages.php",
+		type: "get",
+		data: "id=" + str,
+		success: function(resText) {
+			console.log(JSON.parse(resText));
+			let arr = JSON.parse(resText);
+			console.log(arr);
+			obj = arr[0];
+			$("#price").html(obj["price"]);
+			$("#namess").html(obj["name"]);
+			$(".colorsss").html(obj["color"]);
+			$(".mgi").eq(0).attr("src", obj["img1"]);
+			$(".mgi").eq(1).attr("src", obj["img2"]);
+			$(".mgi").eq(2).attr("src", obj["img3"]);
+			$(".mgi").eq(3).attr("src", obj["img4"]);
+			let a = "" + obj["img5"];
+			$("#small-box").css('backgroundImage', a);
+			$("#big-box").css('backgroundImage', a);
+			let f = "" + obj["img9"];
+			$(".butt1").css('backgroundImage', f);
+		}
+	})
+
+	//点击小图片改变自身透明度以及大图片的路径
+	$(".safess ul li").eq(0).click(function() {
+		$(this).css("opacity", "1").siblings().css("opacity", "0.5");
+		let b = "" + obj["img5"];
+		$("#small-box").css("backgroundImage", b);
+		$("#big-box").css("backgroundImage", b);
+	});
+	$(".safess ul li").eq(1).click(function() {
+		$(this).css("opacity", "1").siblings().css("opacity", "0.5");
+		let c = "" + obj["img6"];
+		$("#small-box").css("backgroundImage", c);
+		$("#big-box").css("backgroundImage", c);
+	});
+	$(".safess ul li").eq(2).click(function() {
+		$(this).css("opacity", "1").siblings().css("opacity", "0.5");
+		let d = "" + obj["img7"];
+		$("#small-box").css("backgroundImage", d);
+		$("#big-box").css("backgroundImage", d);
+	});
+	$(".safess ul li").eq(3).click(function() {
+		$(this).css("opacity", "1").siblings().css("opacity", "0.5");
+		let e = "" + obj["img8"];
+		$("#small-box").css("backgroundImage", e);
+		$("#big-box").css("backgroundImage", e);
+	});
+	//点击鞋码按钮改变颜色
+	$(".butt2").click(function() {
+		$(this).css({
+			"backgroundColor": "#232323",
+			"color": "white"
+		}).attr("id", "butt22").siblings().css({
+			"backgroundColor": "white",
+			"color": "black"
+		}).attr("id", null);
+	});
+	//点击加入购物车将商品的基本信息传入数据库
+	$(".butt4").click(function() {
+		$.ajax({
+			url: "../php/detailpage.php",
+			type: "get",
+			data: "userprice=" + $("#price").html() + "&username=" + $("#namess").html() + "&usercolor=" + $(".colorsss").html() +
+				"&usersize=" + $("#butt22").html() + "&userimgsrc=" + $(".mgi").eq(0).attr("src"),
+			success: function(resText) {
+				if (resText == "1") {
+					alert("已添加");
+				} else {
+					alert("添加成功");
+				}
+			}
+		});
+	})
+</script>

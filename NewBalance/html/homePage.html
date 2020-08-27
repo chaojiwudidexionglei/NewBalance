@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>New Balance中国官方商城</title>
+		<link rel="stylesheet" type="text/css" href="../css/homePage.css" />
+	</head>
+	<body>
+
+		<div id="box"></div>
+
+		<section>
+
+			<div class="img1">
+				<a href=""><img src="../img/3840-950yr.jpg"></a>
+			</div>
+
+			<div class="shop">
+				<ul>
+					<li>
+						<a href="detailpage.html?1">Shop All > </a><br />
+						<a href="detailpage.html?1"><b>男子</b></a>
+					</li>
+					<li>
+						<a href="detailpage.html?2">Shop All > </a><br />
+						<a href="detailpage.html?2"><b>女子</b></a>
+					</li>
+					<li>
+						<a href="detailpage.html?3">Shop All > </a><br />
+						<a href="detailpage.html?3"><b>男孩</b></a>
+					</li>
+					<li>
+						<a href="detailpage.html?4">Shop All > </a><br />
+						<a href="detailpage.html?4"><b>女孩</b></a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="photo">
+				<div class="photos">
+					<a href=""><img src="../img/3840-700.png"></a>
+				</div>
+				<div class="photos">
+					<a href=""><img src="../img/3840-700%20(1).jpg"></a>
+				</div>
+				<div class="photos">
+					<a href=""><img src="../img/3840-700.jpg"></a>
+				</div>
+			</div>
+
+			<div class="photo4">
+				<ul>
+					<li>
+						<a href=""><img src="../img/1172-670%20(1).jpg"></a>
+						<p class="one"><a href="">怒刷派对</a></p>
+						<p class="two"><a href=""><b>827系列全新配色</b></a></p>
+						<p class="three"><a href="">即刻查看&nbsp;<b> > </b></a></p>
+					</li>
+					<li>
+						<a href=""><img src="../img/1172-670.jpg"></a>
+						<p class="one"><a href="">怒刷派对</a></p>
+						<p class="two"><a href=""><b>827系列全新配色</b></a></p>
+						<p class="three"><a href="">即刻查看&nbsp;<b> > </b></a></p>
+					</li>
+					<li>
+						<a href=""><img src="../img/1172-670s.jpg"></a>
+						<p class="one"><a href="">怒刷派对</a></p>
+						<p class="two"><a href=""><b>827系列全新配色</b></a></p>
+						<p class="three"><a href="">即刻查看&nbsp;<b> > </b></a></p>
+					</li>
+					<li>
+						<a href=""><img src="../img/1172-670kq.jpg"></a>
+						<p class="one"><a href="">怒刷派对</a></p>
+						<p class="two"><a href=""><b>827系列全新配色</b></a></p>
+						<p class="three"><a href="">即刻查看&nbsp;<b> > </b></a></p>
+					</li>
+				</ul>
+			</div>
+
+			<div class="slideshow">
+				<div>
+					<ul id="ulul">
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+					<button id="prev"> < </button>
+					<button id="next"> > </button>
+				</div>
+			</div>
+
+		</section>
+
+		<div id="footer"></div>
+
+	</body>
+</html>
+<script src="../js/jquery.js"></script>
+<script>
+	$(function() {
+		$("#box").load("header.html");
+		$("#footer").load("footer.html");
+
+		let oUl = $("#ulul");
+		let oLi = oUl.find("li");
+		let index = 0;
+		let time = null;
+
+		function change() {
+			oUl.animate({
+				left: -1920 * index
+			}, 500, function() {
+				if (index == oLi.length - 1) {
+					index = 0;
+					oUl.css("left", "0");
+				}
+			})
+		}
+
+		time = setInterval(() => {
+			index++;
+			change();
+		}, 2000);
+
+		//-----------------------------------------
+		function fun() {
+			oUl.stop(true, false).animate({
+				left: -1920 * index
+			}, 500)
+		}
+
+		//点击第一个按钮
+		$("#prev").click(function() {
+			index--;
+			if (index == -1) {
+				index = 2
+				oUl.css({
+					left: index * -1920
+				})
+				index--
+			}
+			fun();
+		})
+
+		//点击第二个按钮
+		$("#next").click(function() {
+			
+			index++;
+			if (index >= 2) {
+				index = 0
+				oUl.css({
+					left: index * -1920
+				})
+				index++
+			}
+			fun();
+		})
+
+	});
+</script>

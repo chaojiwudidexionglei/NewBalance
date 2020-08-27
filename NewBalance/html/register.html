@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>New Balance中国官方商城</title>
+		<link rel="stylesheet" type="text/css" href="../css/register.css" />
+		<style>
+			/* #last{
+				position: absolute;
+				top :100%;
+				width: 100%;
+			} */
+			/* #first{
+				position: absolute;
+				top :0;
+				width: 100%;
+			} */
+		</style>
+	</head>
+	<body>
+		<div id="first"></div>
+		<div id="nav">
+			<h1>登陆或者注册新的账户</h1>
+		</div>
+		<div id="register">
+			<div class="den">
+				<div class="from">
+					<div class="a1">
+						<h2>登录</h2>
+						<span class="star1">*</span>
+						<span class="txt">电子邮箱地址</span><br>
+						<input type="email" name="" id="" value="" class="inp" /><br>
+						<p class="import">请输入一个有效的电子邮箱地址</p>
+						<span class="star">*</span>
+						<span class="txt">密码</span><br>
+						<input type="password" name="" id="" value="" class="inp" />
+						<p class="import">请至少输入 8 个字符密码</p>
+						<div class="check">
+							<input type="checkbox" name="" id="" value="" />
+							<span>显示密码</span><span class="rig"><a href="">重新设置您的密码</a></span><br>
+							<input type="checkbox" name="" id="" value="" />
+							<span>记住</span><br>
+						</div>
+						<button type="submit" class="but1">登录</button>
+					</div>
+				</div>
+				<div class="listss">
+					<h3>为什么注册?</h3>
+					<ul>
+						<li>- 获得新品上市信息和最新活动信息</li>
+						<li>- 接收发货信息</li>
+						<li>- 方便查阅订单状态</li>
+						<li>- 管理您的收货和发票地址</li>
+					</ul>
+				</div>
+			</div>
+			<div class="zhu">
+				<div class="a2">
+					<h2>注册</h2>
+					<span class="txt">姓名</span><br>
+					<input type="text" name="" id="" value="" class="inp" /><br>
+					<span class="star">*</span>
+					<span class="txt">电子邮箱</span><br>
+					<input type="email" name="" id="" value="" class="inp" /><br>
+					<p class="import">请输入一个有效的电子邮箱地址</p>
+					<span class="star">*</span>
+					<span class="txt">验证邮箱</span><br>
+					<input type="email" name="" id="" value="" class="inp" /><br>
+					<p class="import">请输入一个有效的电子邮箱地址</p>
+					<span class="star">*</span>
+					<span class="txt">密码</span><br>
+					<input type="password" name="" id="" value="" class="inp" />
+					<p class="import">请至少输入 8 个字符密码</p>
+					<span class="star">*</span>
+					<span class="txt">验证密码</span><br>
+					<input type="password" name="" id="" value="" class="inp" />
+					<p class="import">请至少输入 8 个字符密码</p>
+					<div class="check">
+						<input type="checkbox" name="" id="" value="" />
+						<span>显示密码</span><br>
+						<input type="checkbox" name="" id="chec" value="" />
+						<span>我承诺点击(提交)按钮即表示我已阅读,理解并接受<a href="">隐私政策</a>,<a href="">使用条款</a>及<a href="">退货政策</a>的详细内容。</span><br>
+					</div>
+					<button type="submit" class="but2">注册账户</button>
+				</div>
+			</div>
+		</div>
+		<div id="last"></div>
+	</body>
+</html>
+<script src="../js/jquery.js"></script>
+<script>
+	$("#first").load("header.html");
+	$("#last").load("footer.html");
+	//登录
+	let figemail = false;
+	let figpassword = false;
+	$(".inp").eq(0).blur(function() {
+		let Email = /.@+/;
+		if ($(this).val() == "") {
+			$(".import").eq(0).css({
+				display: "block"
+			});
+		} else if (Email.test($(".inp").eq(0).val())) {
+			$(".import").eq(0).css({
+				display: "none"
+			});
+			figemail = true;
+		} else {
+			$(".import").eq(0).css({
+				display: "block"
+			});
+			figemail = false;
+		}
+	});
+	$(".inp").eq(1).blur(function() {
+		let passwords = /.{8,}/;
+		if ($(this).val() == "") {
+			$(".import").eq(1).css({
+				display: "block"
+			});
+		} else if (passwords.test($(".inp").eq(1).val())) {
+			$(".import").eq(1).css({
+				display: "none"
+			});
+			figpassword = true;
+		} else {
+			$(".import").eq(1).css({
+				display: "block"
+			});
+			figpassword = false;
+		}
+	});
+	$(".but1").click(function() {
+		if (figemail && figpassword) {
+			$.ajax({
+				url: "../php/registers.php",
+				type: "post",
+				data: "useremails=" + $(".inp").eq(0).val() + "&userpwds=" + $(".inp").eq(1).val(),
+				success: function(resText) {
+					if(resText == 1){
+						alert("登录成功");
+						location.href = "homePage.html";
+					}else{
+						alert("登录失败");
+					}
+				}
+			});
+		}
+	});
+	
+	//---------------------------------------------------------------------------------------
+	//注册
+	let fagemail = false;
+	let fagpassword = false;
+	let fagche = false;
+	$(".inp").eq(3).blur(function() {
+		let Email = /.@+/;
+		if ($(this).val() == "") {
+			$(".import").eq(2).css({
+				display: "block"
+			});
+		} else if (Email.test($(".inp").eq(3).val())) {
+			$(".import").eq(2).css({
+				display: "none"
+			});
+			fagemail = true;
+		} else {
+			$(".import").eq(2).css({
+				display: "block"
+			});
+			fagemail = false;
+		}
+	});
+	$(".inp").eq(4).blur(function() {
+		let Email = /.@+/;
+		if ($(this).val() == "") {
+			$(".import").eq(3).css({
+				display: "block"
+			});
+		} else if (Email.test($(".inp").eq(4).val())) {
+			$(".import").eq(3).css({
+				display: "none"
+			});
+			fagemail = true;
+		} else {
+			$(".import").eq(3).css({
+				display: "block"
+			});
+			fagemail = false;
+		}
+	});
+	$(".inp").eq(5).blur(function() {
+		let passwords = /.{8,}/;
+		if ($(this).val() == "") {
+			$(".import").eq(4).css({
+				display: "block"
+			});
+		} else if (passwords.test($(".inp").eq(5).val())) {
+			$(".import").eq(4).css({
+				display: "none"
+			});
+			fagpassword = true;
+		} else {
+			$(".import").eq(4).css({
+				display: "block"
+			});
+			fagpassword = false;
+		}
+	});
+	$(".inp").eq(6).blur(function() {
+		let passwords = /.{8,}/;
+		if ($(this).val() == "") {
+			$(".import").eq(5).css({
+				display: "block"
+			});
+		} else if (passwords.test($(".inp").eq(6).val())) {
+			$(".import").eq(5).css({
+				display: "none"
+			});
+			fagpassword = true;
+		} else {
+			$(".import").eq(5).css({
+				display: "block"
+			});
+			fagpassword = false;
+		}
+	});
+	$("#chec").click(function() {
+		if ($(this).prop("checked", true)) {
+			fagche = true;
+		} else {
+			fagche = false;
+		}
+	});
+	$(".but2").click(function() {
+		if (fagemail && fagpassword && fagche) {
+			$.ajax({
+				url: "../php/register.php",
+				type: "post",
+				data: "useremail=" + $(".inp").eq(4).val() + "&userpwd=" + $(".inp").eq(6).val(),
+				success: function(resText) {
+					alert("注册成功，请登录");
+					console.log(resText);
+				}
+			});
+		}
+	});
+</script>
